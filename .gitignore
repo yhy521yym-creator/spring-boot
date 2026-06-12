@@ -1,19 +1,18 @@
-# Maven
-target/
+# Frontend
+node_modules/
+dist/
 
-# Logs
+# Backend
+backend/target/
+backend/*.log
+
+# Root logs
 *.log
 
 # Upload files
-uploads/
+backend/uploads/
 
-# IDEA
+# IDE
 .idea/
-*.iml
-
-# VSCode
 .vscode/
-
-# OS
-.DS_Store
-Thumbs.db
+*.iml
