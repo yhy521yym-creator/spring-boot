@@ -1,13 +1,5 @@
-# Node
-node_modules/
-dist/
-
-# Spring Boot
+# Maven
 target/
-
-# IDE
-.idea/
-.vscode/
 
 # Logs
 *.log
@@ -15,8 +7,12 @@ target/
 # Upload files
 uploads/
 
-# Environment
-.env
+# IDEA
+.idea/
+*.iml
+
+# VSCode
+.vscode/
 
 # OS
 .DS_Store
