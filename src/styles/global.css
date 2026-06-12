@@ -1,0 +1,231 @@
+/* 全局设计变量与页面统一样式 */
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-light: #60a5fa;
+  --color-bg-page: #eef2f7;
+  --color-bg-card: #ffffff;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --transition: 0.2s ease;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 业务页统一容器 */
+.page-view {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 8px;
+  animation: pageFadeIn 0.35s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 卡片 */
+.page-view > .el-card,
+.page-view .page-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 16px;
+  transition: box-shadow var(--transition);
+  overflow: hidden;
+}
+
+.page-view > .el-card:hover,
+.page-view .page-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.page-view .el-card__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  background: linear-gradient(180deg, #fafbfd 0%, #fff 100%);
+}
+
+.page-view .el-card__body {
+  padding: 20px;
+}
+
+/* 页内标题栏 */
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-head__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.page-head__desc {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.page-head__extra {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 卡片内标题行 */
+.page-view .card-header,
+.page-view .page-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+.page-view .card-header > span:first-child,
+.page-view .card-header .title,
+.page-view .page-title-inline {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 筛选区 */
+.page-filters,
+.page-view .filter-row,
+.page-view .filters,
+.page-view .search-bar,
+.page-view .search-card .el-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.page-view .search-card {
+  margin-bottom: 16px;
+  background: #f8fafc;
+}
+
+.page-view .search-card .el-card__body {
+  padding: 16px 20px;
+}
+
+/* 表格 */
+.page-view .el-table {
+  --el-table-header-bg-color: #f8fafc;
+  --el-table-row-hover-bg-color: #f1f5f9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.page-view .el-table th.el-table__cell {
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+}
+
+.page-view .el-table .el-table__cell {
+  padding: 12px 0;
+}
+
+.page-view .el-pagination {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  justify-content: flex-end;
+}
+
+/* 图表区 */
+.page-view .chart-container,
+.page-view .chart-box {
+  height: 300px;
+  width: 100%;
+  min-height: 260px;
+}
+
+.page-view .stats-row {
+  margin-bottom: 20px;
+}
+
+/* 空状态 */
+.page-view .el-empty {
+  padding: 40px 0;
+}
+
+.text-muted {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+/* Element 按钮圆角 */
+.page-view .el-button {
+  border-radius: var(--radius-md);
+}
+
+.page-view .el-input__wrapper,
+.page-view .el-select__wrapper {
+  border-radius: var(--radius-md);
+}
+
+/* 概览页统计卡片 */
+.page-view.dashboard .stat-card.page-card {
+  border: none;
+}
+
+.page-view.dashboard .stat-card .el-card__body {
+  padding: 20px 22px;
+}
+
+.page-view .content-row .page-card,
+.page-view .content-row .el-card {
+  height: 100%;
+}
+
+/* 预约商品网格 */
+.page-view .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 8px 0 16px;
+}
+
+.page-view .product-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.page-view .product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}

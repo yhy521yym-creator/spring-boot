@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.servicearea.mapper.ServiceAreaMapper">
+
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.example.servicearea.entity.ServiceArea">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="facilities" property="facilities"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 带距离的结果映射 -->
+    <resultMap id="WithDistanceResultMap" type="com.example.servicearea.entity.ServiceArea" extends="BaseResultMap">
+        <result column="distance" property="distance"/>
+    </resultMap>
+
+    <!-- 分页查询服务区（支持按名称、地址模糊搜索） -->
+    <select id="selectPageWithSearch" resultMap="BaseResultMap">
+        SELECT
+            id, name, address, region, longitude, latitude, facilities,
+            description, status, create_time, update_time
+        FROM service_area
+        WHERE 1 = 1
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="address != null and address != ''">
+            AND address LIKE CONCAT('%', #{address}, '%')
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!--
+        查询附近的服务区
+        使用Haversine公式计算球面距离（适用于H2数据库）
+        6371000是地球半径（米）
+    -->
+    <select id="selectNearby" resultMap="WithDistanceResultMap">
+        SELECT * FROM (
+            SELECT
+                id, name, address, longitude, latitude, facilities,
+                description, status, create_time, update_time,
+                (6371000 * ACOS(
+                    COS(RADIANS(#{lat})) * COS(RADIANS(latitude)) *
+                    COS(RADIANS(longitude) - RADIANS(#{lng})) +
+                    SIN(RADIANS(#{lat})) * SIN(RADIANS(latitude))
+                )) AS distance
+            FROM service_area
+            WHERE status = 1
+        ) AS nearby
+        WHERE distance &lt;= #{radius}
+        ORDER BY distance ASC
+    </select>
+
+</mapper>

@@ -1,0 +1,23 @@
+# Node
+node_modules/
+dist/
+
+# Spring Boot
+target/
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Upload files
+uploads/
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
